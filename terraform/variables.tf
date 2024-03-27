@@ -67,3 +67,7 @@ variable "firewall_port" {
   description = "The port for the firewall rule"
   type        = string
 }
+variable "zones" {
+  description = "A list of zones where the instance will be deployed"
+  type        = list(string)
+}

@@ -31,7 +31,7 @@ resource "google_compute_router" "router" {
 }
 
 resource "google_compute_address" "google_compute_address" {
-  name   = "adiyodi_assign2-nat-ip"
+  name   = "adiyodi-assign2-nat-ip"
   region = var.region
 }
 
@@ -100,7 +100,7 @@ resource "google_compute_instance" "private_instance" {
 spec:
   containers:
     - name: flask-app
-      image: northamerica-northeast1-docker.pkg.dev/ci-lab-412213/flask-app/flask-img:latest
+      image: n    gcr.io/devops-414504/adiyodi-assignment2/flask_app:latest:latest
       env:
         - name: PORT
           value: "5000"
@@ -139,9 +139,8 @@ resource "google_compute_backend_service" "backend_service" {
 }
 
 resource "google_compute_health_check" "health_check" {
-  name               = "health-check"
-  check_interval_sec = 5
-  timeout_sec        = 5
+  name = "health-check"
+  
   http_health_check {
     port               = 5000
     request_path       = "/"
@@ -149,6 +148,7 @@ resource "google_compute_health_check" "health_check" {
     timeout_sec        = 5
   }
 }
+
 
 resource "google_compute_target_http_proxy" "http_proxy" {
   name    = "http-proxy"
